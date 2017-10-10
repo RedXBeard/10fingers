@@ -1,0 +1,36 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<TenFingers>
+    cols: 1
+    rows: 2
+    padding: 15, 15, 15, 15
+    spacing: 10, 10
+
+    upcoming_text: upcoming_text
+    input_text: input_text
+
+    BoxLayout:
+        TextInput:
+            size_hint_y: None
+            height: sp(150)
+            id: upcoming_text
+            multiline: True
+            disabled: True
+            background_color: 1, 1, 1, 1
+            background_disabled_active: ""
+            background_disabled_normal: ""
+            background_normal: ""
+            background_active: ""
+
+    BoxLayout:
+        TextInput:
+            id: input_text
+            size_hint_y: None
+            padding: 20, 20, 20, 20
+            height: sp(40)
+            multiline: False
+            background_color: 1, 1, 1, 1
+            background_disabled_active: ""
+            background_disabled_normal: ""
+            background_normal: ""
+            background_active: ""
