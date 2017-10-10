@@ -1,5 +1,29 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
+<Label>:
+    canvas.before:
+        Color:
+            rgba: get_color_from_hex('FFFFFF')
+        Rectangle:
+            pos: self.pos[0], self.pos[1]+8/2
+            size: self.size[0], self.size[1]-8
+        Rectangle:
+            pos: self.pos[0]+8/2, self.pos[1]
+            size: self.size[0]-8, self.size[1]
+        Ellipse:
+            size: 8, 8
+            pos: self.pos[0], self.pos[1]
+        Ellipse:
+            size: 8, 8
+            pos: self.pos[0], self.pos[1]+self.height-8
+        Ellipse:
+            size: 8, 8
+            pos: self.pos[0]+self.width-8, self.pos[1]
+        Ellipse:
+            size: 8, 8
+            pos: self.pos[0]+self.width-8, self.pos[1]+self.height-8
+    padding: 10, 10
+
 <TenFingers>
     cols: 1
     rows: 2
@@ -10,27 +34,24 @@
     input_text: input_text
 
     BoxLayout:
-        TextInput:
+        Label:
+            id: upcoming_text
             size_hint_y: None
             height: sp(150)
-            id: upcoming_text
-            multiline: True
-            disabled: True
-            background_color: 1, 1, 1, 1
-            background_disabled_active: ""
-            background_disabled_normal: ""
-            background_normal: ""
-            background_active: ""
+            text_size: self.size
+            markup: True
+            max_lines: 3
+            halign: 'left'
+            valign: 'middle'
 
     BoxLayout:
-        TextInput:
+        TenFingerInputText:
             id: input_text
             size_hint_y: None
             padding: 20, 20, 20, 20
             height: sp(40)
             multiline: False
             background_color: 1, 1, 1, 1
-            background_disabled_active: ""
             background_disabled_normal: ""
             background_normal: ""
             background_active: ""

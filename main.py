@@ -3,10 +3,19 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
-from random import choice, shuffle
+from random import shuffle
 
 from dictionary import DICTIONARY
+
+ERROR = '#FF0000'
+SUCCESS = '#008000'
+
+
+class TenFingerInputText(TextInput):
+    def on_text(instance, value, vs):
+        print('The widget', instance, 'value:', value, 'vs', vs)
 
 
 class TenFingers(GridLayout):
@@ -14,7 +23,7 @@ class TenFingers(GridLayout):
         super(TenFingers, self).__init__(*args, **kwargs)
         self.dictionary = DICTIONARY.get('TR')
         shuffle(self.dictionary)
-        self.upcoming_text.text = '. '.join(self.dictionary[:3])
+        self.upcoming_text.text = '[u][color={}]{}[/color][/u]'.format(ERROR, '. '.join(self.dictionary))
 
 
 class TenFingersApp(App):
