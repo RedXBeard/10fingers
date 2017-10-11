@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 DICTIONARY = {
     'TR': [
         "Her gün, daima öğleden sonra oraya gidiyor, koridorlardaki resimlere bakıyormuş gibi ağır ağır, fakat büyük "

@@ -1,3 +1,5 @@
+from random import shuffle
+
 from kivy import Config
 from kivy.app import App
 from kivy.core.window import Window
@@ -5,25 +7,51 @@ from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
-from random import shuffle
 
 from dictionary import DICTIONARY
+from utils import find_parent, write_text
 
 ERROR = '#FF0000'
 SUCCESS = '#008000'
+BLACK = '#000000'
 
 
 class TenFingerInputText(TextInput):
-    def on_text(instance, value, vs):
-        print('The widget', instance, 'value:', value, 'vs', vs)
+    is_forward = True
+
+    def insert_text(self, substring, from_undo=False):
+        root = find_parent(self, TenFingers)
+        write_text(root, BLACK)
+
+        if not self.is_forward:
+            self.is_forward = True
+            root.initial_index += 1
+        root.initial_index += 1
+        return super(TenFingerInputText, self).insert_text(substring, from_undo=from_undo)
+
+    def do_backspace(self, from_undo=False, mode='bkspc'):
+        super(TenFingerInputText, self).do_backspace(from_undo=from_undo, mode='bkspc')
+        root = find_parent(self, TenFingers)
+        if self.is_forward:
+            root.initial_index -= 1
+            self.is_forward = False
+        root.initial_index -= 1
+        write_text(root, BLACK)
 
 
 class TenFingers(GridLayout):
+    initial_index = 1
+    dictionary = DICTIONARY.get('TR')
+    shuffle(dictionary)
+    original_text = '. '.join(dictionary)
+
     def __init__(self, *args, **kwargs):
         super(TenFingers, self).__init__(*args, **kwargs)
-        self.dictionary = DICTIONARY.get('TR')
-        shuffle(self.dictionary)
-        self.upcoming_text.text = '[u][color={}]{}[/color][/u]'.format(ERROR, '. '.join(self.dictionary))
+        prev = self.original_text[:0]
+        rest = self.original_text[1:]
+        self.upcoming_text.text = "{0}[u]{2}[/u]{1}".format(
+            prev, rest, self.original_text[0],
+        )
 
 
 class TenFingersApp(App):

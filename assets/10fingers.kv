@@ -40,13 +40,14 @@
             height: sp(150)
             text_size: self.size
             markup: True
-            max_lines: 3
             halign: 'left'
-            valign: 'middle'
+            valign: 'top'
+            color: get_color_from_hex('#000000')
 
     BoxLayout:
         TenFingerInputText:
             id: input_text
+            text: ''
             size_hint_y: None
             padding: 20, 20, 20, 20
             height: sp(40)
