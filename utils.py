@@ -41,7 +41,7 @@ def check_wordish(expected, typed):
     index = 0
     expected = expected[::-1].zfill(len(typed))[::-1]
     for t in typed:
-        result = check_char(expected[index] or '', t)
+        result = check_char(get_char(expected, index), t)
         if not result:
             return False
         index += 1
@@ -52,6 +52,13 @@ def write_text(root, color='#000000'):
     prev = root.original_text[:root.initial_index]
     rest = root.original_text[root.initial_index + 1:]
     root.upcoming_text.text = "[color={2}][u]{0}{3}[/u][/color]{1}".format(
-        prev, rest, color, root.original_text[root.initial_index],
+        prev, rest, color, get_char(root.original_text, root.initial_index),
     )
 
+
+def get_char(text, index):
+    try:
+        result = text[index]
+    except IndexError:
+        result = ''
+    return result

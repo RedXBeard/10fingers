@@ -51,7 +51,6 @@ DICTIONARY = {
         'Cümleleri, kelimeleri ve harfleri',
         'Oysa bana bu kitabı yazdıran şey som sessizlik oldu',
         'Mesneviyi şerh edenlerin çoğu bu ölümsüz eserin b harfiyle başladığına dikkat çeker',
-        'İlk kelimesi Bişrev!dir',
         'Yani Dinle! Tesadüf mü dersin ismi Suskun olan bir şairin en kıymetli yapıtına Dinle! diye başlaması',
         'Sahi, sessizlik dinlenebilir mi?Bu romanda her bölüm aynı sessiz harfle başlar',
         'Neden? diye sorma, ne olur',

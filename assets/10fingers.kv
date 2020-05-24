@@ -1,5 +1,29 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
+<Button>
+    canvas.before:
+        Color:
+            rgba: get_color_from_hex('#ffffff')
+        Rectangle:
+            pos: self.pos[0], self.pos[1]+sp(25)/2
+            size: self.size[0], self.size[1]-sp(25)
+        Rectangle:
+            pos: self.pos[0]+sp(25)/2, self.pos[1]
+            size: self.size[0]-sp(25), self.size[1]
+        Ellipse:
+            size: sp(25), sp(25)
+            pos: self.pos[0], self.pos[1]
+        Ellipse:
+            size: sp(25), sp(25)
+            pos: self.pos[0], self.pos[1]+self.height-sp(25)
+        Ellipse:
+            size: sp(25), sp(25)
+            pos: self.pos[0]+self.width-sp(25), self.pos[1]
+        Ellipse:
+            size: sp(25), sp(25)
+            pos: self.pos[0]+self.width-sp(25), self.pos[1]+self.height-sp(25)
+    padding: 10, 10
+
 <Label>
     canvas.before:
         Color:
@@ -24,14 +48,27 @@
             pos: self.pos[0]+self.width-sp(25), self.pos[1]+self.height-sp(25)
     padding: 10, 10
 
-<TenFingers>
+<TenFingersPlay>
     cols: 1
-    rows: 2
+    rows: 3
     padding: 15, 15, 15, 15
     spacing: 10, 10
 
     upcoming_text: upcoming_text
     input_text: input_text
+    game_since: game_since
+    BoxLayout:
+        Label:
+            id: game_since
+            name: 'game_since'
+            text: ''
+            size_hint_y: None
+            height: sp(40)
+            font_size: sp(20)
+            text_size: self.size
+            halign: 'right'
+            valign: 'top'
+            color: get_color_from_hex('#000000')
 
     BoxLayout:
         Label:
@@ -82,3 +119,53 @@
             background_disabled_normal: ""
             background_normal: ""
             background_active: ""
+
+<TenFingers>
+    welcome: welcome
+    play: play
+    final: final
+
+    Screen:
+        id: welcome
+        name: 'welcome'
+        GridLayout:
+            cols: 1
+            rows: 1
+            padding: 15, 15, 15, 15
+            spacing: 10, 10
+            Button:
+                text: 'START'
+                size_hint_y: None
+                height: sp(80)
+                font_size: sp(30)
+                on_press: root.switch_play_window()
+
+    Screen:
+        id: play
+        name: 'play'
+        TenFingersPlay
+
+    Screen:
+        id: final
+        name: 'final'
+        GridLayout:
+            rows: 2
+            cols: 1
+            padding: 15, 15, 15, 15
+            spacing: 10, 10
+            score: score
+            Label:
+                id: score
+                size_hint_y: None
+                height: sp(80)
+                font_size: sp(50)
+                markup: True
+                valign: 'middle'
+                color: get_color_from_hex('#000000')
+
+            Button:
+                text: 'REPLAY'
+                size_hint_y: None
+                height: sp(80)
+                font_size: sp(30)
+                on_press: root.switch_play_window('right')
