@@ -1,27 +1,27 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
-<Label>:
+<Label>
     canvas.before:
         Color:
-            rgba: get_color_from_hex('FFFFFF')
+            rgba: get_color_from_hex('#ffffff')
         Rectangle:
-            pos: self.pos[0], self.pos[1]+8/2
-            size: self.size[0], self.size[1]-8
+            pos: self.pos[0], self.pos[1]+sp(25)/2
+            size: self.size[0], self.size[1]-sp(25)
         Rectangle:
-            pos: self.pos[0]+8/2, self.pos[1]
-            size: self.size[0]-8, self.size[1]
+            pos: self.pos[0]+sp(25)/2, self.pos[1]
+            size: self.size[0]-sp(25), self.size[1]
         Ellipse:
-            size: 8, 8
+            size: sp(25), sp(25)
             pos: self.pos[0], self.pos[1]
         Ellipse:
-            size: 8, 8
-            pos: self.pos[0], self.pos[1]+self.height-8
+            size: sp(25), sp(25)
+            pos: self.pos[0], self.pos[1]+self.height-sp(25)
         Ellipse:
-            size: 8, 8
-            pos: self.pos[0]+self.width-8, self.pos[1]
+            size: sp(25), sp(25)
+            pos: self.pos[0]+self.width-sp(25), self.pos[1]
         Ellipse:
-            size: 8, 8
-            pos: self.pos[0]+self.width-8, self.pos[1]+self.height-8
+            size: sp(25), sp(25)
+            pos: self.pos[0]+self.width-sp(25), self.pos[1]+self.height-sp(25)
     padding: 10, 10
 
 <TenFingers>
@@ -37,22 +37,48 @@
         Label:
             id: upcoming_text
             size_hint_y: None
-            height: sp(150)
+            height: sp(80)
             text_size: self.size
+            font_size: sp(20)
+            line_height: 1.5
             markup: True
             halign: 'left'
             valign: 'top'
             color: get_color_from_hex('#000000')
 
     BoxLayout:
+        padding: 20, 20, 20 , 20
         TenFingerInputText:
+            canvas.after:
+                Color:
+                    rgba: get_color_from_hex('#ffffff')
+                Rectangle:
+                    pos: self.pos[0]-sp(10)/2, self.pos[1]+sp(10)/2
+                    size: sp(10), sp(30)
+                Rectangle:
+                    pos: self.pos[0]+self.width-sp(10)/2, self.pos[1]+sp(10)/2
+                    size: sp(10), sp(30)
+                Ellipse:
+                    size: sp(10), sp(10)
+                    pos: self.pos[0]-sp(10)/2, self.pos[1]
+                Ellipse:
+                    size: sp(10), sp(10)
+                    pos: self.pos[0]-sp(10)/2, self.pos[1]+self.height-sp(10)
+                Ellipse:
+                    size: sp(10), sp(10)
+                    pos: self.pos[0]+self.width-sp(5), self.pos[1]
+                Ellipse:
+                    size: sp(10), sp(10)
+                    pos: self.pos[0]+self.width-sp(5), self.pos[1]+self.height-sp(10)
             id: input_text
             text: ''
             size_hint_y: None
-            padding: 20, 20, 20, 20
+            padding: 10, 20, 20, 20
             height: sp(40)
             multiline: False
+            foreground_color: 0, 0, 0, 1
             background_color: 1, 1, 1, 1
+            cursor_color: get_color_from_hex('#000000')
             background_disabled_normal: ""
             background_normal: ""
             background_active: ""

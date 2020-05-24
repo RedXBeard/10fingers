@@ -36,15 +36,15 @@ DICTIONARY = {
         'Dilim lal oldu, kalemimin ucu kör',
         'Kırk fırın ekmek yemeye yolladım kendimi',
         'Dünyayı dolaştım',
-        'İnsanlar tanıdım, hikâyeler topladım',
+        'İnsanlar tanıdım, hikayeler topladım',
         'Üzerinden çok bahar geçti',
-        'Fırınlarda ekmek kalmadı; ben hâlâ ham, hâlâ aşkta bir çocuk gibi toy',
+        'Fırınlarda ekmek kalmadı; ben hala ham, hala aşkta bir çocuk gibi toy',
         'Hamuş derdi Mevlana kendine',
         'Yani Suskun',
-        'Düşündün mü hiç bir şairin, hem de nâmı dünyayı sarmış bir şairin, yani işi gücü, varlığı, kimliği ve hatta '
+        'Düşündün mü hiç bir şairin, hem de namı dünyayı sarmış bir şairin, yani işi gücü, varlığı, kimliği ve hatta '
         'soluduğu hava bile kelimelerden müteşekkil olan ve elli binden fazla muhteşem dizeye imza atmış bir insanın, '
         'nasıl olup da kendine SUSKUN adını verdiğini',
-        'Kâinatın da tıpkı bizimki gibi nazenin bir kalbi ve düzenli bir kalp atışı var',
+        'Kainatın da tıpkı bizimki gibi nazenin bir kalbi ve düzenli bir kalp atışı var',
         'Seneler var ki nereye gidersem gideyim o sesi dinledim',
         'Her bir insanı Yaradanın emaneti saklı bir cevher addedip, anlattıklarına kulak verdim',
         'Dinlemeyi sevdim',

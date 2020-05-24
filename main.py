@@ -9,7 +9,7 @@ from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 
 from dictionary import DICTIONARY
-from utils import find_parent, write_text
+from utils import find_parent, write_text, check_char, check_wordish
 
 ERROR = '#FF0000'
 SUCCESS = '#008000'
@@ -19,28 +19,59 @@ BLACK = '#000000'
 class TenFingerInputText(TextInput):
     is_forward = True
 
+    def __init__(self, **kwargs):
+        super(TenFingerInputText, self).__init__(**kwargs)
+        self.error = False
+
+    def detect_correct_word(self):
+        if not self.error and self.text[-1] == ' ':
+            root = find_parent(self, TenFingers)
+            root.original_text = ''.join(root.original_text.split(' ', 1)[1:])
+            root.initial_index = 0
+            self.text = ''
+            write_text(root)
+
+    def on_parent(self, widget, parent):
+        self.focus = True
+
     def insert_text(self, substring, from_undo=False):
         root = find_parent(self, TenFingers)
-        write_text(root, BLACK)
-
-        if not self.is_forward:
-            self.is_forward = True
+        if check_char(root.original_text[root.initial_index], substring) and not self.error:
+            write_text(root, SUCCESS)
+            if not self.is_forward:
+                self.is_forward = True
             root.initial_index += 1
-        root.initial_index += 1
-        return super(TenFingerInputText, self).insert_text(substring, from_undo=from_undo)
+            self.error = False
+        else:
+            self.error = True
+            write_text(root, ERROR)
+        super(TenFingerInputText, self).insert_text(substring, from_undo=from_undo)
+        self.detect_correct_word()
+        self.focus = True
 
     def do_backspace(self, from_undo=False, mode='bkspc'):
         super(TenFingerInputText, self).do_backspace(from_undo=from_undo, mode='bkspc')
         root = find_parent(self, TenFingers)
         if self.is_forward:
-            root.initial_index -= 1
             self.is_forward = False
-        root.initial_index -= 1
-        write_text(root, BLACK)
+        if not self.error:
+            root.initial_index = max(0, root.initial_index-1)
+
+        if not root.original_text[:root.initial_index]:
+            color = BLACK
+            self.error = False
+        elif check_wordish(root.original_text[:root.initial_index+1], self.text):
+            color = SUCCESS
+            self.error = False
+        else:
+            color = ERROR
+            self.error = True
+        write_text(root, color)
+        self.focus = True
 
 
 class TenFingers(GridLayout):
-    initial_index = 1
+    initial_index = 0
     dictionary = DICTIONARY.get('TR')
     shuffle(dictionary)
     original_text = '. '.join(dictionary)
@@ -58,7 +89,7 @@ class TenFingersApp(App):
     def __init__(self, **kwargs):
         super(TenFingersApp, self).__init__(**kwargs)
         Builder.load_file('assets/10fingers.kv')
-        self.title = '10Fingers'
+        self.title = 'Kivy 10 Fingers'
         # self.icon = 'assets/10fingers.ico'
 
     def build(self):
