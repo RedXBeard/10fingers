@@ -11,7 +11,7 @@ from kivy.uix.screenmanager import ScreenManager, SlideTransition
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 
-from dictionary import DICTIONARY, AppVocab
+from dictionary import DICTIONARY
 from utils import find_parent, write_text, check_char, check_wordish, get_char, DB
 
 

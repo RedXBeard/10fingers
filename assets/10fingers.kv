@@ -1,14 +1,18 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import AppVocab dictionary.AppVocab
+#:import AppVocab vocab.AppVocab
 
-<Image>:
-    size_hint_y: 1
-    anim_delay: 0.1
+<Button>
+    background_color: 0, 0, 0, 0  # the last zero is the critical on, make invisible
+    canvas.before:
+        Color:
+            rgba: get_color_from_hex('#abc2be') if self.state=='normal' else get_color_from_hex('#00d1ad')  # visual feedback of press
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [50,]
 
 <Label>
     canvas.before:
-        Color:
-            rgba: get_color_from_hex('#ffffff')
         Rectangle:
             pos: self.pos[0], self.pos[1]+sp(25)/2
             size: self.size[0], self.size[1]-sp(25)
@@ -62,33 +66,33 @@
             halign: 'left'
 
     BoxLayout:
-        padding: 20, 20, 20 , 20
+        padding: 20, 20, 20, 20
         TenFingerInputText:
             canvas.after:
                 Color:
                     rgba: get_color_from_hex('#ffffff')
                 Rectangle:
-                    pos: self.pos[0]-sp(10)/2, self.pos[1]+sp(10)/2
-                    size: sp(10), sp(30)
+                    pos: self.pos[0]-sp(25)/2, self.pos[1]+sp(25)/2
+                    size: sp(25), sp(18)
                 Rectangle:
-                    pos: self.pos[0]+self.width-sp(10)/2, self.pos[1]+sp(10)/2
-                    size: sp(10), sp(30)
+                    pos: self.pos[0]+self.width-sp(25)/2, self.pos[1]+sp(25)/2
+                    size: sp(25), sp(18)
                 Ellipse:
-                    size: sp(10), sp(10)
-                    pos: self.pos[0]-sp(10)/2, self.pos[1]
+                    size: sp(25), sp(25)
+                    pos: self.pos[0]-sp(25)/2, self.pos[1]
                 Ellipse:
-                    size: sp(10), sp(10)
-                    pos: self.pos[0]-sp(10)/2, self.pos[1]+self.height-sp(10)
+                    size: sp(25), sp(25)
+                    pos: self.pos[0]-sp(25)/2, self.pos[1]+self.height-sp(25)
                 Ellipse:
-                    size: sp(10), sp(10)
-                    pos: self.pos[0]+self.width-sp(5), self.pos[1]
+                    size: sp(25), sp(25)
+                    pos: self.pos[0]+self.width-sp(25)/2, self.pos[1]
                 Ellipse:
-                    size: sp(10), sp(10)
-                    pos: self.pos[0]+self.width-sp(5), self.pos[1]+self.height-sp(10)
+                    size: sp(25), sp(25)
+                    pos: self.pos[0]+self.width-sp(25)/2, self.pos[1]+self.height-sp(25)
             id: input_text
             text: ''
             size_hint_y: None
-            padding: 10, 20, 20, 20
+            padding: sp(25)/2, 20, 20, 20
             height: sp(40)
             multiline: False
             foreground_color: 0, 0, 0, 1
@@ -143,13 +147,11 @@
                         halign: 'center'
             Button:
                 text: AppVocab('READY!')
-                size_hint_y: None
                 height: sp(80)
                 font_size: sp(30)
-                valign: 'middle'
+                valign: 'bottom'
                 halign: 'center'
                 on_press: root.switch_play_window()
-                color: get_color_from_hex('#FFFFFF')
 
     Screen:
         id: play
@@ -169,7 +171,6 @@
                 id: score
                 height: sp(80)
                 font_size: sp(50)
-                valign: 'middle'
                 halign: 'center'
 
             Button:
@@ -177,6 +178,5 @@
                 height: sp(80)
                 font_size: sp(30)
                 on_press: root.switch_play_window('right')
-                color: get_color_from_hex('#FFFFFF')
-                valign: 'middle'
+                valign: 'bottom'
                 halign: 'center'
