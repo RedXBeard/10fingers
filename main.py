@@ -5,14 +5,15 @@ from kivy import Config
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import BooleanProperty, StringProperty, Clock
+from kivy.properties import BooleanProperty, Clock
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, SlideTransition
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 
-from dictionary import DICTIONARY
-from utils import find_parent, write_text, check_char, check_wordish, get_char
+from dictionary import DICTIONARY, AppVocab
+from utils import find_parent, write_text, check_char, check_wordish, get_char, DB
+
 
 ERROR = '#FF0000'
 SUCCESS = '#008000'
@@ -21,6 +22,9 @@ BLACK = '#000000'
 
 class TenFingerInputText(TextInput):
     is_forward = True
+    is_focusable = True
+    unfocus_on_touch = False
+    text_validate_unfocus = False
 
     def __init__(self, **kwargs):
         super(TenFingerInputText, self).__init__(**kwargs)
@@ -79,6 +83,17 @@ class TenFingerInputText(TextInput):
 
 
 class TenFingers(ScreenManager):
+    @staticmethod
+    def best_score():
+        DB.store_load()
+        return max(*list(filter(lambda x: isinstance(x, int), DB._data.values())))
+
+    @staticmethod
+    def last_score():
+        key = str(sorted(list(map(lambda x: float(x), filter(
+            lambda x: x[0].isdigit(), DB.keys()))), reverse=True)[0])
+        return DB.store_get(key)
+
     def switch_play_window(self, direction='left'):
         self.transition = SlideTransition(direction=direction)
         self.current = 'play'
@@ -87,6 +102,10 @@ class TenFingers(ScreenManager):
     def switch_final_window(self, direction='left'):
         self.transition = SlideTransition(direction=direction)
         self.current = 'final'
+
+    def switch_welcome_window(self, direction='left'):
+        self.transition = SlideTransition(direction=direction)
+        self.current = 'welcome'
 
 
 class TenFingersPlay(GridLayout):
@@ -107,7 +126,9 @@ class TenFingersPlay(GridLayout):
             if time_diff.total_seconds() >= 60:
                 root = find_parent(self, TenFingers)
                 root.switch_final_window()
-                root.current_screen.children[0].score.text = '{} WPM'.format(self.score)
+                DB.store_put(datetime.now().timestamp(), self.score)
+                DB.store_sync()
+                root.current_screen.children[0].score.text = '{} wpm'.format(self.score)
             else:
                 Clock.schedule_once(lambda dt: self.counter(), .1)
 
@@ -134,9 +155,27 @@ class TenFingersApp(App):
         self.title = 'Kivy 10 Fingers'
         # self.icon = 'assets/10fingers.ico'
 
+        # def _image_loaded(self, proxyImage):
+        #     if proxyImage.image.texture:
+        #         self.image.texture = proxyImage.image.texture
+
     def build(self):
         ten_fingers = TenFingers()
         return ten_fingers
+
+    # def ping_google(self):
+    #     time.sleep(12)
+    #     print(1)
+    #     self.app_version_checker()
+    #
+    # def app_version_checker(self):
+    #     time.sleep(12)
+    #     print(2)
+    #     self.vocab_version_checker()
+    #
+    # def vocab_version_checker(self):
+    #     time.sleep(12)
+    #     print(3)
 
 
 if __name__ == '__main__':

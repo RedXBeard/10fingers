@@ -1,28 +1,9 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import AppVocab dictionary.AppVocab
 
-<Button>
-    canvas.before:
-        Color:
-            rgba: get_color_from_hex('#ffffff')
-        Rectangle:
-            pos: self.pos[0], self.pos[1]+sp(25)/2
-            size: self.size[0], self.size[1]-sp(25)
-        Rectangle:
-            pos: self.pos[0]+sp(25)/2, self.pos[1]
-            size: self.size[0]-sp(25), self.size[1]
-        Ellipse:
-            size: sp(25), sp(25)
-            pos: self.pos[0], self.pos[1]
-        Ellipse:
-            size: sp(25), sp(25)
-            pos: self.pos[0], self.pos[1]+self.height-sp(25)
-        Ellipse:
-            size: sp(25), sp(25)
-            pos: self.pos[0]+self.width-sp(25), self.pos[1]
-        Ellipse:
-            size: sp(25), sp(25)
-            pos: self.pos[0]+self.width-sp(25), self.pos[1]+self.height-sp(25)
-    padding: 10, 10
+<Image>:
+    size_hint_y: 1
+    anim_delay: 0.1
 
 <Label>
     canvas.before:
@@ -47,6 +28,13 @@
             size: sp(25), sp(25)
             pos: self.pos[0]+self.width-sp(25), self.pos[1]+self.height-sp(25)
     padding: 10, 10
+    size_hint_y: None
+    text_size: self.size
+    line_height: 1.5
+    markup: True
+    halign: 'left'
+    valign: 'top'
+    color: get_color_from_hex('#000000')
 
 <TenFingersPlay>
     cols: 1
@@ -61,27 +49,17 @@
         Label:
             id: game_since
             name: 'game_since'
-            text: ''
-            size_hint_y: None
             height: sp(40)
             font_size: sp(20)
-            text_size: self.size
             halign: 'right'
-            valign: 'top'
-            color: get_color_from_hex('#000000')
 
     BoxLayout:
         Label:
             id: upcoming_text
-            size_hint_y: None
             height: sp(80)
-            text_size: self.size
             font_size: sp(20)
-            line_height: 1.5
             markup: True
             halign: 'left'
-            valign: 'top'
-            color: get_color_from_hex('#000000')
 
     BoxLayout:
         padding: 20, 20, 20 , 20
@@ -128,17 +106,50 @@
     Screen:
         id: welcome
         name: 'welcome'
+        last_score: last_score
+        best_score: best_score
         GridLayout:
             cols: 1
-            rows: 1
+            rows: 2
             padding: 15, 15, 15, 15
             spacing: 10, 10
+            GridLayout
+                cols: 2
+                rows: 1
+                spacing: 50, 10
+                GridLayout:
+                    cols: 1
+                    rows: 2
+                    spacing: 0, -40
+                    Label:
+                        text: AppVocab('Last')
+                    Label:
+                        id: last_score
+                        text: '{} wpm'.format(root.last_score())
+                        height: sp(80)
+                        font_size: sp(40)
+                        halign: 'center'
+                GridLayout:
+                    cols: 1
+                    rows: 2
+                    spacing: 0, -40
+                    Label:
+                        text: AppVocab('Best')
+                    Label:
+                        id: best_score
+                        text: '{} wpm'.format(root.best_score())
+                        height: sp(80)
+                        font_size: sp(40)
+                        halign: 'center'
             Button:
-                text: 'START'
+                text: AppVocab('READY!')
                 size_hint_y: None
                 height: sp(80)
                 font_size: sp(30)
+                valign: 'middle'
+                halign: 'center'
                 on_press: root.switch_play_window()
+                color: get_color_from_hex('#FFFFFF')
 
     Screen:
         id: play
@@ -156,16 +167,16 @@
             score: score
             Label:
                 id: score
-                size_hint_y: None
                 height: sp(80)
                 font_size: sp(50)
-                markup: True
                 valign: 'middle'
-                color: get_color_from_hex('#000000')
+                halign: 'center'
 
             Button:
-                text: 'REPLAY'
-                size_hint_y: None
+                text: AppVocab('AGAIN!')
                 height: sp(80)
                 font_size: sp(30)
                 on_press: root.switch_play_window('right')
+                color: get_color_from_hex('#FFFFFF')
+                valign: 'middle'
+                halign: 'center'
