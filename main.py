@@ -95,12 +95,16 @@ class TenFingers(ScreenManager):
 
     def best(self):
         DB.store_load()
-        self.best_score = str(max(*list(filter(lambda x: isinstance(x, int), DB._data.values()))))
+        scores = list(filter(lambda x: isinstance(x, int), DB._data.values()))
+        if scores:
+            scores += [0]
+            self.best_score = str(max(*scores))
 
     def last(self):
-        key = str(sorted(list(map(lambda x: float(x), filter(
-            lambda x: x[0].isdigit(), DB.keys()))), reverse=True)[0])
-        self.last_score = str(DB.store_get(key))
+        keys = sorted(list(map(lambda x: float(x), filter(
+            lambda x: x[0].isdigit(), DB.keys()))), reverse=True)
+        if keys:
+            self.last_score = str(DB.store_get(str(keys[0])))
 
     def switch_play_window(self, direction='left'):
         screen = self.base_screens[1]
@@ -124,6 +128,7 @@ class TenFingersPlay(GridLayout):
     game_on = BooleanProperty(False)
     game_at = None
     score = 0
+    max_seconds = 60
 
     initial_index = 0
 
@@ -135,7 +140,8 @@ class TenFingersPlay(GridLayout):
         if self.game_on:
             time_diff = datetime.now() - self.game_at
             self.game_since.text = str(time_diff).rsplit(".", 1)[0][3:]
-            if time_diff.total_seconds() >= 60:
+            self.current_score.text = '{} wpm'.format(self.score)
+            if time_diff.total_seconds() >= self.max_seconds:
                 root = find_parent(self, TenFingers)
                 root.switch_final_window()
                 DB.store_put(datetime.now().timestamp(), self.score)
@@ -167,8 +173,8 @@ class TenFingersPlay(GridLayout):
 class TenFingersApp(App):
     def __init__(self, **kwargs):
         super(TenFingersApp, self).__init__(**kwargs)
-        Builder.load_file('assets/10fingers.kv')
-        self.title = 'Kivy 10 Fingers'
+        Builder.load_file('assets/wordhunter.kv')
+        self.title = 'Kivy Word Hunter'
         # self.icon = 'assets/10fingers.ico'
 
         # def _image_loaded(self, proxyImage):

@@ -49,8 +49,11 @@
     upcoming_text: upcoming_text
     input_text: input_text
     game_since: game_since
-    BoxLayout:
-        orientation: 'horizontal'
+    current_score: current_score
+    GridLayout:
+        cols: 3
+        rows: 1
+        spacing: 15, 15
         size_hint_y: None
         height: sp(40)
 
@@ -63,6 +66,13 @@
             on_press: root.direct_welcome_screen('right')
             padding: 0, 5
             valign: 'bottom'
+            halign: 'center'
+
+        Label:
+            id: current_score
+            name: 'current_score'
+            height: sp(40)
+            font_size: sp(20)
             halign: 'center'
 
         Label:

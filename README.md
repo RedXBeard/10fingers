@@ -1,1 +1,1 @@
-# 10fingers
+# Word Hunter (Typing Test)

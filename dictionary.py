@@ -1,5 +1,3 @@
-from utils import DB
-
 DICTIONARY = {
     'TR': [
         'Her gün, daima öğleden sonra oraya gidiyor, koridorlardaki resimlere bakıyormuş gibi ağır ağır, fakat büyük '
@@ -70,5 +68,49 @@ DICTIONARY = {
         'Sahilden bir mil uzaklıkta, denizi kucaklarcasına ilerleyen bir balıkçı teknesi, martılara kahvaltı '
         'zamanının geldiğini haber veriyordu',
         'Binlerce martı, bir lokma yiyecek için mücadeleye girişmişti bile',
-        'İşte zor bir gün daha başlıyordu']
+        'İşte zor bir gün daha başlıyordu',
+        'İsteyip istemediğimi doğru dürüst bilmediğim,'
+        'fakat neticesi aleyhime çıkarsa istediğimi iddia ettiğim bu nevi söz ve '
+        'fiillerimin daimi bir mesulünü bulmuştum; buna içimdeki şeytan diyordum, '
+        'müdaafasını üzerime almaktan korktuğum bütün hareketlerimi ona yüklüyor ve kendi suratıma tüküreceğim yerde, '
+        'haksızlığa, tesadüfün cilvesine uğramış bir mazlum gibi nefsimi şefkat ve ihtimama layık görüyordum',
+        'Halbuki ne şeytanı azizim, ne şeytanı? bu bizim gururumuzun, salaklığımızın uydurması',
+        'Ömrümüz boyunca tek bir şey düşünürsünüz. bazı soruların yanıt '
+        'gerektirmediğini bildiğiniz halde güneşin hiç tazeliği yoktur',
+        'Üstelik zaman ve yaşam pek çok sırrı içinde gizler',
+        'Kendinizi güçlü hissettiğinizde, rastlantıların yarattığı bu perdeyi açmak isteyebilirsiniz.'
+        'On iki yaşında küçük bir çocuk, hamburger yerine tüfeği için bir kutu kurşun alırsa, '
+        'bu tercih onun tüm yaşamını etkileyebilir.'
+        'Öyle zekiyim ki, bazen söylediklerimin tek bir kelimesini anlamıyorum',
+        'Yağmurlar darılmaz mesela. Ne üstüne basana ne şemsiye açana',
+        'Hayatta en değerli olan zamandır. Kime hediye ettiğine dikkat et',
+        'Asla sana sıradan gibi davranan birini sevme',
+        'Kendi araçları dahilinde yaşayan herkes hayal gücünün eksikliğinden muzdariptir',
+        'Mutsuzken, başkalarının mutsuzluğunu daha güçlü hissederiz; duygu parçalanmaz, yoğunlaşır',
+        'Mantıksız geldikleri için hislerimi inkar edecek kadar büyümemiştim daha',
+        'Oysa insan olmanın özü budur, dönmekte olan bu gezegenin üzerinde var olmakta '
+        'olduğumuz şu kısa anda, zamanın ve ölümün sonunda hepimizden hakkını alacağı '
+        'gerçeğine karşın bazı insanları ve şeyleri sevebiliriz',
+        'İçimde büyük bir hafiflik, bir genişlik duyuyorum. Belki de hakikaten sevmek budur. '
+        'Belki de ben şimdiye kadar sahiden sevmenin ne olduğunu bilmiyordum',
+        'Çevrendeki her şey peş peşe değişiyor, her gün yeni bir çalkantıya yol açıyor, '
+        'eski görüşler, eski inançlar geçerliliğini kaybediyor',
+        'İnsanoğlu böyledir; bir emelin ardından mütemadiyen koşar durur; '
+        'sonra o emel gerçekleşmeye yüz tuttuğu zaman da yanına yaklaşmaya cesaret edemez',
+        'İhtiras her şeyi affettirir; siz ise, bu bencilliğiniz ile hep kendinizi düşünüyorsunuz',
+        'Kendimi evliliğe hazır hissettiğimde, doksana basmış olacağım ve iş işten geçmiş olacak. '
+        'Kim gömecek beni? Ailenin en genciyim, işte insanlar bu yüzden çocuk doğuruyor',
+        'Başınızı dik tutun, yumruklarınızı da indirin. Kim size ne derse desin, '
+        'hakim olun. Değişiklik olsun diye, kafanızla mücadele edin. '
+        'öğrenmeye dirense de kafa denen şey iyi bir şeydir',
+        'Eğer bir şeftali kurtlara kanar, onların etlerine işlemesine, çekirdeklerini '
+        'kemirmesine duyarsızlaşır ise ölür. Eğer çekirdeğindeki gizli güçle yaşama '
+        'bağlanırsa ve gelişme ortamına sahipse her şeftali gelişir',
+        'Hayat gerçekten bir avuç yerde durmadan dönüp durmak, sonra da yaşlanıp ölüp '
+        'gitmek mi yoksa bu dünyada başka türlü yaşamak da mümkün mü',
+        'Elmasın sertliği, saflığının da nedenidir. İçine ışıktan başkası girmez ve yansıttığı, '
+        'aldığından fazlasıdır. Her şeyi kesebildiği hâlde hiçbir şey tarafından kesilemez. '
+        'Bir elmas ancak bir başka elmas tarafından kesilebilir',
+
+    ]
 }

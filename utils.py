@@ -24,7 +24,7 @@ else:
     cmd = "echo %USERPROFILE%"
 out = run_syscall(cmd)
 DEF_USER = out.split('%s' % PATH_SEPERATOR)[-1]
-REPOFILE = "{0}{1}.kivy-10-fingers{1}jsonfile".format(out, PATH_SEPERATOR)
+REPOFILE = "{0}{1}.kivy-word-hunter{1}jsonfile".format(out, PATH_SEPERATOR)
 
 directory = os.path.dirname(REPOFILE)
 if not os.path.exists(directory):
