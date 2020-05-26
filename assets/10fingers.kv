@@ -50,6 +50,21 @@
     input_text: input_text
     game_since: game_since
     BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: sp(40)
+
+        Button:
+            text: AppVocab('Home')
+            size_hint_x: None
+            width: sp(100)
+            height: sp(40)
+            font_size: sp(15)
+            on_press: root.direct_welcome_screen('right')
+            padding: 0, 5
+            valign: 'bottom'
+            halign: 'center'
+
         Label:
             id: game_since
             name: 'game_since'
@@ -129,7 +144,7 @@
                         text: AppVocab('Last')
                     Label:
                         id: last_score
-                        text: '{} wpm'.format(root.last_score())
+                        text: root.last_score and '{} wpm'.format(root.last_score) or '--'
                         height: sp(80)
                         font_size: sp(40)
                         halign: 'center'
@@ -141,17 +156,18 @@
                         text: AppVocab('Best')
                     Label:
                         id: best_score
-                        text: '{} wpm'.format(root.best_score())
+                        text: root.best_score and '{} wpm'.format(root.best_score) or '--'
                         height: sp(80)
                         font_size: sp(40)
                         halign: 'center'
-            Button:
-                text: AppVocab('READY!')
-                height: sp(80)
-                font_size: sp(30)
-                valign: 'bottom'
-                halign: 'center'
-                on_press: root.switch_play_window()
+            BoxLayout:
+                Button:
+                    text: AppVocab('READY!')
+                    height: sp(80)
+                    font_size: sp(30)
+                    valign: 'bottom'
+                    halign: 'center'
+                    on_press: root.switch_play_window()
 
     Screen:
         id: play
@@ -162,21 +178,37 @@
         id: final
         name: 'final'
         GridLayout:
-            rows: 2
             cols: 1
+            rows: 3
             padding: 15, 15, 15, 15
             spacing: 10, 10
             score: score
-            Label:
-                id: score
-                height: sp(80)
-                font_size: sp(50)
-                halign: 'center'
+            BoxLayout:
+                size_hint_y: None
+                height: sp(40)
+                Button:
+                    text: AppVocab('Home')
+                    size_hint_x: None
+                    width: sp(100)
+                    height: sp(40)
+                    font_size: sp(15)
+                    on_press: root.switch_welcome_window('right')
+                    padding: 0, 5
+                    valign: 'bottom'
+                    halign: 'center'
 
-            Button:
-                text: AppVocab('AGAIN!')
-                height: sp(80)
-                font_size: sp(30)
-                on_press: root.switch_play_window('right')
-                valign: 'bottom'
-                halign: 'center'
+            BoxLayout:
+                Label:
+                    id: score
+                    height: sp(80)
+                    font_size: sp(50)
+                    halign: 'center'
+
+            BoxLayout:
+                Button:
+                    text: AppVocab('AGAIN!')
+                    height: sp(80)
+                    font_size: sp(30)
+                    on_press: root.switch_play_window('right')
+                    valign: 'bottom'
+                    halign: 'center'

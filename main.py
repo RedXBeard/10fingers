@@ -1,3 +1,4 @@
+from copy import copy
 from datetime import datetime
 from random import shuffle
 
@@ -5,9 +6,9 @@ from kivy import Config
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import BooleanProperty, Clock
+from kivy.properties import BooleanProperty, Clock, StringProperty
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.screenmanager import ScreenManager, SlideTransition
+from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 
@@ -83,29 +84,40 @@ class TenFingerInputText(TextInput):
 
 
 class TenFingers(ScreenManager):
-    @staticmethod
-    def best_score():
-        DB.store_load()
-        return max(*list(filter(lambda x: isinstance(x, int), DB._data.values())))
+    best_score = StringProperty()
+    last_score = StringProperty()
 
-    @staticmethod
-    def last_score():
+    def __init__(self, **kwargs):
+        super(TenFingers, self).__init__(**kwargs)
+        self.base_screens = copy(self.screens)
+        self.best()
+        self.last()
+
+    def best(self):
+        DB.store_load()
+        self.best_score = str(max(*list(filter(lambda x: isinstance(x, int), DB._data.values()))))
+
+    def last(self):
         key = str(sorted(list(map(lambda x: float(x), filter(
             lambda x: x[0].isdigit(), DB.keys()))), reverse=True)[0])
-        return DB.store_get(key)
+        self.last_score = str(DB.store_get(key))
 
     def switch_play_window(self, direction='left'):
-        self.transition = SlideTransition(direction=direction)
-        self.current = 'play'
+        screen = self.base_screens[1]
+        self.switch_to(screen, direction=direction)
         self.current_screen.children[0].prepare_screen()
 
     def switch_final_window(self, direction='left'):
-        self.transition = SlideTransition(direction=direction)
-        self.current = 'final'
+        screen = self.base_screens[2]
+        self.switch_to(screen, direction=direction)
 
     def switch_welcome_window(self, direction='left'):
-        self.transition = SlideTransition(direction=direction)
-        self.current = 'welcome'
+        screen = self.base_screens[0]
+        root = find_parent(self, TenFingers)
+        self.switch_to(screen, direction=direction)
+        root.play.children[0].game_on = False
+        self.best()
+        self.last()
 
 
 class TenFingersPlay(GridLayout):
@@ -146,6 +158,10 @@ class TenFingersPlay(GridLayout):
         self.game_at = datetime.now()
         self.score = 0
         self.counter()
+
+    def direct_welcome_screen(self, direction='left'):
+        root = find_parent(self, TenFingers)
+        root.switch_welcome_window(direction=direction)
 
 
 class TenFingersApp(App):
